@@ -64,9 +64,9 @@ const deleteuser = async (req, res) => {
 
 
 const loginuser = async (req, res) => {
-    const { possword, phone } = req.body
+    const { possword, email } = req.body
     try {
-        const users = await User_MODEL.findOne({ phone })
+        const users = await User_MODEL.findOne({ email,password })
         res.status(200).json({
             success: true,
             users
