@@ -64,17 +64,19 @@ const deleteuser = async (req, res) => {
 
 
 const loginuser = async (req, res) => {
-    const { possword, email } = req.body
+    const { password, phone } = req.body
+    console.log(password, phone);
+
     try {
-        const users = await User_MODEL.findOne({ email,password })
+        const user = await User_MODEL.findOne({ password, phone })
         res.status(200).json({
-            success: true,
-            users
+            success: user ? true : false,
+            user: user
         })
     }
-    catch {
+    catch (error) {
         res.status(400).json({
-            seccess: false,      
+            seccess: false,
             error: error.message,
         })
     }

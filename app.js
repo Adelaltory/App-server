@@ -16,6 +16,13 @@ mongoose.connection.on("connected", () => {
 
 
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    live: 'test',
+  })
+
+});
+
 app.get("/app", (req, res) => {
   res.status(200).json({
     name: 'adel',
