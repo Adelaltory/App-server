@@ -1,5 +1,35 @@
 const product_MODEL = require("../models/productmodel")
 
+const getAllProducts = async (req, res) => {
+    try {
+      // Fetch all products from the database
+      const products = await product_MODEL.find();
+      
+      // Check if any products exist
+      if (products.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "No products found",
+        });
+      }
+  
+      // Respond with all products
+      res.status(200).json({
+        success: true,
+        message: "Products retrieved successfully",
+        data: products,
+      });
+    } catch (error) {
+      // Handle any errors that occur during the database query
+      res.status(500).json({
+        success: false,
+        error: error.name,
+        message: error.message,
+  });
+ }
+
+  };
+
 const createproduct = async (req, res) => {
     try {
         const { name , price , image, quantity } = req.body
@@ -63,5 +93,6 @@ module.exports = {
     createproduct,
     deleteproduct,
     findproduct,
+    getAllProducts
 }
 
